@@ -1,0 +1,84 @@
+<div class="inbox-container">
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="search-bar">
+      <mat-icon>search</mat-icon>
+      <input type="text" placeholder="Search tickets..." [(ngModel)]="searchQuery" (ngModelChange)="applyFilters()">
+    </div>
+    
+    <div class="filters">
+      <mat-chip-listbox>
+        <mat-chip-option selected>All</mat-chip-option>
+        <mat-chip-option>Mine</mat-chip-option>
+        <mat-chip-option>Unassigned</mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+
+    <div class="ticket-list">
+      @for (ticket of filteredTickets; track ticket.id) {
+        <div class="ticket-item" [class.selected]="selectedTicket?.id === ticket.id" (click)="selectTicket(ticket)">
+          <div class="ticket-header">
+            <div class="contact-info">
+              <app-channel-icon [channel]="ticket.channel"></app-channel-icon>
+              <span class="contact-name">{{ticket.contactName}}</span>
+            </div>
+            <span class="time-ago">Just now</span>
+          </div>
+          <div class="ticket-body">
+            <p class="preview">{{ticket.lastMessagePreview}}</p>
+            <div class="badges">
+              <span class="unread-badge" *ngIf="ticket.unreadCount > 0">{{ticket.unreadCount}}</span>
+              <div class="sla-dot" [ngClass]="'sla-' + ticket.slaStatus"></div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    @if (selectedTicket) {
+      <div class="chat-header">
+        <div class="header-info">
+          <h2>{{selectedTicket.contactName}}</h2>
+          <app-sla-timer [dueDate]="selectedTicket.firstResponseDue"></app-sla-timer>
+        </div>
+        <div class="header-actions">
+          <button mat-button color="primary">Resolve</button>
+          <button mat-button color="warn">Escalate</button>
+        </div>
+      </div>
+
+      <div class="message-area" id="message-area">
+        @for (msg of messages; track msg.id) {
+          <div class="message-wrapper" [class.inbound]="msg.senderType === 'contact'" [class.outbound]="msg.senderType === 'agent'">
+            <div class="bubble">
+              {{msg.content}}
+              <div class="meta">
+                <span class="time">12:00 PM</span>
+                @if (msg.senderType === 'agent') {
+                  <mat-icon class="status-icon">done_all</mat-icon>
+                }
+              </div>
+            </div>
+          </div>
+        }
+        @if (isContactTyping) {
+          <div class="typing-indicator">Contact is typing...</div>
+        }
+      </div>
+
+      <div class="input-area">
+        <button mat-icon-button><mat-icon>attach_file</mat-icon></button>
+        <textarea placeholder="Type a message..." [(ngModel)]="newMessage" (keyup)="onType()" (keyup.enter)="sendMessage()"></textarea>
+        <button mat-icon-button color="primary" (click)="sendMessage()"><mat-icon>send</mat-icon></button>
+      </div>
+    } @else {
+      <div class="empty-state">
+        <mat-icon class="empty-icon">inbox</mat-icon>
+        <p>Select a ticket to start messaging</p>
+      </div>
+    }
+  </div>
+</div>

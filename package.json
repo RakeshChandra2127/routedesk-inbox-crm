@@ -1,0 +1,13 @@
+{
+  "name": "omnidesk-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OmniDesk Hub - Real-Time Omnichannel CRM & Router. Unified inbox with SLA tracking, live presence, and intelligent ticket routing.",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm start",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "start": "cd backend && npm start"
+  }
+}

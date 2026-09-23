@@ -1,0 +1,68 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --bg-dark: #0f172a;
+  --bg-panel: #1e293b;
+  --text-light: #f8fafc;
+  --text-muted: #94a3b8;
+  --primary: #3b82f6;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  
+  --whatsapp-color: #25D366;
+  --email-color: #3b82f6;
+  --web-color: #8b5cf6;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-dark); 
+}
+::-webkit-scrollbar-thumb {
+  background: #334155; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569; 
+}
+
+/* Material Overrides for Dark Theme */
+.mat-app-background {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+}
+
+.mat-mdc-card {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-light) !important;
+}
+
+.mat-drawer-container {
+  background-color: var(--bg-dark) !important;
+}
+
+.mat-drawer {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-light) !important;
+  border-right: 1px solid #334155 !important;
+}
+
+.mat-toolbar {
+  background-color: var(--bg-panel) !important;
+  color: var(--text-light) !important;
+  border-bottom: 1px solid #334155 !important;
+}
